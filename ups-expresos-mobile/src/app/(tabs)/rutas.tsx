@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, ScrollView, Pressable, ActivityIndicator } from "react-native";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Colors } from "../../constants/Colors";
+import { useTheme } from "../../context/ThemeContext";
 import { mobileService } from "../../services/mobile.service";
 import { Route } from "../../types/route";
 
@@ -10,6 +10,9 @@ export default function RutasScreen() {
   const [routes, setRoutes] = useState<Route[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const { colors } = useTheme();
+
+  const styles = makeStyles(colors);
 
   useEffect(() => {
     loadRoutes();
@@ -33,6 +36,7 @@ export default function RutasScreen() {
         <TextInput
           style={styles.searchInput}
           placeholder="Buscar ruta"
+          placeholderTextColor={colors.text.light}
           value={search}
           onChangeText={setSearch}
         />
@@ -40,7 +44,7 @@ export default function RutasScreen() {
       
       {loading ? (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <ActivityIndicator size="large" color={Colors.button.primary} />
+          <ActivityIndicator size="large" color={colors.button.primary} />
         </View>
       ) : (
         <ScrollView contentContainerStyle={styles.list}>
@@ -63,53 +67,58 @@ export default function RutasScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background.main,
-  },
-  searchContainer: {
-    padding: 20,
-    paddingBottom: 10,
-  },
-  searchInput: {
-    backgroundColor: Colors.background.card,
-    height: 50,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    paddingHorizontal: 15,
-    fontSize: 16,
-  },
-  list: {
-    padding: 20,
-    paddingTop: 10,
-  },
-  card: {
-    backgroundColor: Colors.background.card,
-    padding: 20,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    marginBottom: 15,
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: Colors.text.dark,
-    marginBottom: 10,
-  },
-  cardSubtitle: {
-    fontSize: 14,
-    color: Colors.text.dark,
-    marginBottom: 5,
-  },
-  cardText: {
-    fontSize: 14,
-    color: Colors.text.light,
-  },
-  statusWarning: {
-    color: Colors.warning,
-    fontWeight: "bold",
-  }
-});
+type Colors = ReturnType<typeof useTheme>["colors"];
+
+function makeStyles(colors: Colors) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background.main,
+    },
+    searchContainer: {
+      padding: 20,
+      paddingBottom: 10,
+    },
+    searchInput: {
+      backgroundColor: colors.background.card,
+      height: 50,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: colors.border,
+      paddingHorizontal: 15,
+      fontSize: 16,
+      color: colors.text.dark,
+    },
+    list: {
+      padding: 20,
+      paddingTop: 10,
+    },
+    card: {
+      backgroundColor: colors.background.card,
+      padding: 20,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: colors.border,
+      marginBottom: 15,
+    },
+    cardTitle: {
+      fontSize: 20,
+      fontWeight: "bold",
+      color: colors.text.dark,
+      marginBottom: 10,
+    },
+    cardSubtitle: {
+      fontSize: 14,
+      color: colors.text.dark,
+      marginBottom: 5,
+    },
+    cardText: {
+      fontSize: 14,
+      color: colors.text.light,
+    },
+    statusWarning: {
+      color: colors.warning,
+      fontWeight: "bold",
+    }
+  });
+}

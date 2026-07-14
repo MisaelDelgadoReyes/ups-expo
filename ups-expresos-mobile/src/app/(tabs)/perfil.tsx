@@ -1,222 +1,306 @@
-import { View, Text, StyleSheet, Pressable, Switch, ScrollView } from "react-native";
-import { useRouter } from "expo-router";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Switch,
+  ScrollView,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../../context/AuthContext";
-import { useTheme, lightColors } from "../../context/ThemeContext";
+import { useTheme } from "../../context/ThemeContext";
+
+// ─── Ícono SVG-como-View ───────────────────────────────────────────────────────
+function ChevronRight({ color }: Readonly<{ color: string }>) {
+  return <Text style={{ fontSize: 18, color, lineHeight: 22 }}>›</Text>;
+}
 
 export default function PerfilScreen() {
-  const router = useRouter();
   const { user, logout } = useAuth();
   const { colors, isDarkMode, toggleDarkMode } = useTheme();
 
   const handleLogout = async () => {
     await logout();
-    router.replace("/");
   };
 
   const styles = makeStyles(colors);
 
+  // Iniciales del avatar
+  const initials =
+    user?.name?.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase() ||
+    user?.email?.substring(0, 2).toUpperCase() ||
+    "MB";
+
   return (
-    <ScrollView style={styles.container}>
-      {/* Encabezado del perfil */}
-      <View style={styles.profileHeader}>
-        <View style={styles.avatar}>
-          <Text style={styles.avatarText}>
-            {user?.name?.substring(0, 2).toUpperCase() ||
-              user?.email.substring(0, 2).toUpperCase() ||
-              "US"}
-          </Text>
-        </View>
-        <Text style={styles.name}>{user?.name || "Estudiante"}</Text>
-        <Text style={styles.subtitle}>{user?.role || "Estudiante"}</Text>
-        <Text style={styles.email}>{user?.email}</Text>
+    <SafeAreaView style={styles.safeArea}>
+      {/* Barra superior azul con título */}
+      <View style={styles.topBar}>
+        <Text style={styles.topBarTitle}>Mi perfil</Text>
       </View>
 
-      {/* Menú de opciones */}
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Cuenta</Text>
-        <View style={styles.menu}>
-          <Pressable style={({ pressed }) => [styles.menuItem, pressed && styles.menuItemPressed]}>
-            <Text style={styles.menuItemText}>👤  Datos personales</Text>
-            <Text style={styles.menuItemChevron}>›</Text>
-          </Pressable>
-          <Pressable style={({ pressed }) => [styles.menuItem, pressed && styles.menuItemPressed]}>
-            <Text style={styles.menuItemText}>⚙️  Configuración</Text>
-            <Text style={styles.menuItemChevron}>›</Text>
-          </Pressable>
-          <Pressable style={({ pressed }) => [styles.menuItemLast, pressed && styles.menuItemPressed]}>
-            <Text style={styles.menuItemText}>❓  Ayuda y soporte</Text>
-            <Text style={styles.menuItemChevron}>›</Text>
-          </Pressable>
-        </View>
-      </View>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* ── Tarjeta principal ─────────────────────────────────────── */}
+        <View style={styles.card}>
 
-      {/* Sección Apariencia con Modo Oscuro */}
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Apariencia</Text>
-        <View style={styles.menu}>
-          <View style={styles.menuItemRow}>
-            <View style={styles.menuItemLeft}>
-              <Text style={styles.menuItemText}>
-                {isDarkMode ? "🌙  Modo oscuro" : "☀️  Modo claro"}
-              </Text>
-              <Text style={styles.menuItemSubtext}>
-                {isDarkMode ? "Activo" : "Inactivo"}
-              </Text>
+          {/* Avatar + datos del usuario */}
+          <View style={styles.profileBlock}>
+            <View style={styles.avatarCircle}>
+              <Text style={styles.avatarText}>{initials}</Text>
             </View>
-            <Switch
-              value={isDarkMode}
-              onValueChange={toggleDarkMode}
-              trackColor={{ false: colors.border, true: colors.primary }}
-              thumbColor={isDarkMode ? colors.secondary : "#f4f3f4"}
-            />
+            <Text style={styles.userName}>
+              {user?.name || "María Belén"}
+            </Text>
+            <Text style={styles.userEmail}>
+              {user?.email || "maria.belen@est.ups.edu.ec"}
+            </Text>
+            <Text style={styles.userRole}>
+              {user?.role || "Estudiante"}
+            </Text>
+            <Text style={styles.userMajor}>Ingeniería de Sistemas</Text>
           </View>
-        </View>
-      </View>
 
-      {/* Botón cerrar sesión */}
-      <View style={styles.logoutContainer}>
-        <Pressable
-          style={({ pressed }) => [styles.logoutButton, pressed && { opacity: 0.75 }]}
-          onPress={handleLogout}
-        >
-          <Text style={styles.logoutButtonText}>Cerrar sesión</Text>
-        </Pressable>
-      </View>
-    </ScrollView>
+          {/* Línea divisoria */}
+          <View style={styles.divider} />
+
+          {/* ── Menú de opciones ──────────────────────────────────────── */}
+          <View style={styles.menuGroup}>
+
+            {/* Datos personales */}
+            <Pressable
+              style={({ pressed }) => [
+                styles.menuRow,
+                styles.menuRowBorder,
+                pressed && styles.rowPressed,
+              ]}
+            >
+              <View style={styles.menuLeft}>
+                <Text style={styles.menuIcon}>👤</Text>
+                <Text style={styles.menuLabel}>Datos personales</Text>
+              </View>
+              <ChevronRight color={colors.text.light} />
+            </Pressable>
+
+            {/* Configuración */}
+            <Pressable
+              style={({ pressed }) => [
+                styles.menuRow,
+                styles.menuRowBorder,
+                pressed && styles.rowPressed,
+              ]}
+            >
+              <View style={styles.menuLeft}>
+                <Text style={styles.menuIcon}>⚙️</Text>
+                <Text style={styles.menuLabel}>Configuración</Text>
+              </View>
+              <ChevronRight color={colors.text.light} />
+            </Pressable>
+
+            {/* Modo oscuro */}
+            <View style={[styles.menuRow, styles.menuRowBorder]}>
+              <View style={styles.menuLeft}>
+                <Text style={styles.menuIcon}>
+                  {isDarkMode ? "🌙" : "☀️"}
+                </Text>
+                <Text style={styles.menuLabel}>Modo oscuro</Text>
+              </View>
+              <Switch
+                value={isDarkMode}
+                onValueChange={toggleDarkMode}
+                trackColor={{ false: colors.border, true: colors.primary }}
+                thumbColor={isDarkMode ? colors.secondary : "#FFFFFF"}
+              />
+            </View>
+
+            {/* Ayuda y soporte */}
+            <Pressable
+              style={({ pressed }) => [
+                styles.menuRow,
+                pressed && styles.rowPressed,
+              ]}
+            >
+              <View style={styles.menuLeft}>
+                <Text style={styles.menuIcon}>❓</Text>
+                <Text style={styles.menuLabel}>Ayuda y soporte</Text>
+              </View>
+              <ChevronRight color={colors.text.light} />
+            </Pressable>
+
+          </View>
+
+          {/* Línea divisoria */}
+          <View style={styles.divider} />
+
+          {/* ── Botón cerrar sesión ───────────────────────────────────── */}
+          <Pressable
+            style={({ pressed }) => [
+              styles.logoutBtn,
+              pressed && styles.logoutBtnPressed,
+            ]}
+            onPress={handleLogout}
+          >
+            <Text style={styles.logoutText}>Cerrar sesión</Text>
+          </Pressable>
+
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
-type Colors = ReturnType<typeof import("../../context/ThemeContext").useTheme>["colors"];
+// ─── Estilos ──────────────────────────────────────────────────────────────────
+type ThemeColors = ReturnType<typeof useTheme>["colors"];
 
-function makeStyles(colors: Colors) {
+function makeStyles(colors: ThemeColors) {
   return StyleSheet.create({
-    container: {
+    safeArea: {
+      flex: 1,
+      backgroundColor: colors.primary, // #0065B0
+    },
+    topBar: {
+      backgroundColor: colors.primary,
+      paddingTop: 8,
+      paddingBottom: 14,
+      alignItems: "center",
+    },
+    topBarTitle: {
+      color: "#FFFFFF",
+      fontSize: 17,
+      fontWeight: "700",
+      letterSpacing: 0.3,
+    },
+    scroll: {
       flex: 1,
       backgroundColor: colors.background.main,
     },
-    profileHeader: {
-      alignItems: "center",
-      paddingVertical: 36,
-      paddingHorizontal: 20,
-      backgroundColor: colors.primary,
+    scrollContent: {
+      padding: 16,
+      paddingBottom: 48,
     },
-    avatar: {
-      width: 84,
-      height: 84,
-      borderRadius: 42,
-      backgroundColor: colors.secondary,
+
+    // ── Tarjeta blanca ──────────────────────────────────────────────
+    card: {
+      backgroundColor: colors.background.card,
+      borderRadius: 16,
+      overflow: "hidden",
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 0.07,
+      shadowRadius: 10,
+      elevation: 3,
+    },
+
+    // ── Bloque del perfil ───────────────────────────────────────────
+    profileBlock: {
+      alignItems: "center",
+      paddingTop: 28,
+      paddingBottom: 24,
+      paddingHorizontal: 20,
+    },
+    avatarCircle: {
+      width: 78,
+      height: 78,
+      borderRadius: 39,
+      backgroundColor: colors.button.primary, // #07508E
       alignItems: "center",
       justifyContent: "center",
       marginBottom: 14,
-      borderWidth: 3,
-      borderColor: "#fff",
+      shadowColor: colors.button.primary,
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.35,
+      shadowRadius: 8,
+      elevation: 4,
     },
     avatarText: {
       fontSize: 28,
-      fontWeight: "bold",
-      color: colors.primary,
-    },
-    name: {
-      fontSize: 22,
-      fontWeight: "bold",
+      fontWeight: "700",
       color: "#FFFFFF",
+      letterSpacing: 1,
+    },
+    userName: {
+      fontSize: 19,
+      fontWeight: "700",
+      color: colors.text.dark,
       marginBottom: 4,
     },
-    subtitle: {
-      fontSize: 14,
-      color: colors.secondary,
-      marginBottom: 4,
+    userEmail: {
+      fontSize: 13,
+      color: colors.text.light,
+      marginBottom: 10,
+    },
+    userRole: {
+      fontSize: 13,
+      color: colors.text.dark,
       fontWeight: "600",
     },
-    email: {
+    userMajor: {
       fontSize: 13,
-      color: "rgba(255,255,255,0.75)",
-    },
-    sectionContainer: {
-      marginTop: 20,
-      paddingHorizontal: 16,
-    },
-    sectionTitle: {
-      fontSize: 12,
-      fontWeight: "700",
-      color: colors.text.light,
-      textTransform: "uppercase",
-      letterSpacing: 1,
-      marginBottom: 8,
-      marginLeft: 4,
-    },
-    menu: {
-      backgroundColor: colors.background.card,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: colors.border,
-      overflow: "hidden",
-    },
-    menuItem: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      paddingVertical: 16,
-      paddingHorizontal: 16,
-      borderBottomWidth: 1,
-      borderBottomColor: colors.border,
-    },
-    menuItemLast: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      paddingVertical: 16,
-      paddingHorizontal: 16,
-    },
-    menuItemPressed: {
-      backgroundColor: colors.background.alt,
-    },
-    menuItemRow: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      paddingVertical: 12,
-      paddingHorizontal: 16,
-    },
-    menuItemLeft: {
-      flex: 1,
-    },
-    menuItemText: {
-      fontSize: 16,
-      color: colors.text.dark,
-      fontWeight: "500",
-    },
-    menuItemSubtext: {
-      fontSize: 12,
       color: colors.text.light,
       marginTop: 2,
     },
-    menuItemChevron: {
-      fontSize: 22,
-      color: colors.text.light,
-      fontWeight: "300",
+
+    // ── Línea divisoria ─────────────────────────────────────────────
+    divider: {
+      height: StyleSheet.hairlineWidth,
+      backgroundColor: colors.border,
+      marginHorizontal: 16,
     },
-    logoutContainer: {
-      marginTop: 30,
-      marginBottom: 50,
-      alignItems: "center",
+
+    // ── Menú ────────────────────────────────────────────────────────
+    menuGroup: {
       paddingHorizontal: 16,
+      paddingVertical: 4,
     },
-    logoutButton: {
-      backgroundColor: "transparent",
-      paddingVertical: 14,
-      paddingHorizontal: 40,
-      borderRadius: 30,
-      width: "100%",
+    menuRow: {
+      flexDirection: "row",
       alignItems: "center",
-      borderWidth: 2,
-      borderColor: colors.error,
+      justifyContent: "space-between",
+      paddingVertical: 15,
     },
-    logoutButtonText: {
-      fontSize: 16,
+    menuRowBorder: {
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: colors.border,
+    },
+    menuLeft: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 12,
+    },
+    menuIcon: {
+      fontSize: 18,
+      width: 26,
+      textAlign: "center",
+    },
+    menuLabel: {
+      fontSize: 15,
+      color: colors.text.dark,
+      fontWeight: "500",
+    },
+    rowPressed: {
+      opacity: 0.55,
+    },
+
+    // ── Botón Cerrar sesión ─────────────────────────────────────────
+    logoutBtn: {
+      marginHorizontal: 16,
+      marginVertical: 20,
+      paddingVertical: 13,
+      borderRadius: 30,
+      borderWidth: 1.5,
+      borderColor: colors.error,
+      alignItems: "center",
+    },
+    logoutBtnPressed: {
+      opacity: 0.6,
+    },
+    logoutText: {
+      fontSize: 15,
+      fontWeight: "700",
       color: colors.error,
-      fontWeight: "bold",
-      letterSpacing: 0.5,
+      letterSpacing: 0.3,
     },
   });
 }

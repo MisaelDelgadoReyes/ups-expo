@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
-import { Colors } from "../../constants/Colors";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function HomeScreen() {
   const router = useRouter();
   const { user } = useAuth();
+  const { colors } = useTheme();
+  
+  const styles = makeStyles(colors);
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
@@ -35,69 +38,73 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background.main,
-  },
-  content: {
-    padding: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: Colors.text.dark,
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: Colors.text.light,
-    marginBottom: 30,
-  },
-  actionsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 30,
-    paddingHorizontal: 10,
-  },
-  actionButton: {
-    alignItems: "center",
-  },
-  actionCircle: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 10,
-    backgroundColor: Colors.background.card,
-  },
-  actionText: {
-    fontSize: 14,
-    color: Colors.text.dark,
-  },
-  card: {
-    backgroundColor: Colors.background.card,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    padding: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: Colors.text.dark,
-    marginBottom: 15,
-  },
-  cardText: {
-    fontSize: 16,
-    color: Colors.text.dark,
-  },
-});
+type Colors = ReturnType<typeof useTheme>["colors"];
+
+function makeStyles(colors: Colors) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background.main,
+    },
+    content: {
+      padding: 20,
+    },
+    title: {
+      fontSize: 28,
+      fontWeight: "bold",
+      color: colors.text.dark,
+      marginBottom: 5,
+    },
+    subtitle: {
+      fontSize: 16,
+      color: colors.text.light,
+      marginBottom: 30,
+    },
+    actionsContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginBottom: 30,
+      paddingHorizontal: 10,
+    },
+    actionButton: {
+      alignItems: "center",
+    },
+    actionCircle: {
+      width: 70,
+      height: 70,
+      borderRadius: 35,
+      borderWidth: 1,
+      borderColor: colors.border,
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: 10,
+      backgroundColor: colors.background.card,
+    },
+    actionText: {
+      fontSize: 14,
+      color: colors.text.dark,
+    },
+    card: {
+      backgroundColor: colors.background.card,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: colors.border,
+      padding: 20,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.05,
+      shadowRadius: 2,
+      elevation: 2,
+    },
+    cardTitle: {
+      fontSize: 20,
+      fontWeight: "bold",
+      color: colors.text.dark,
+      marginBottom: 15,
+    },
+    cardText: {
+      fontSize: 16,
+      color: colors.text.dark,
+    },
+  });
+}

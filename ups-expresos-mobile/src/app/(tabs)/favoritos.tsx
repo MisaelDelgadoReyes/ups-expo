@@ -1,10 +1,13 @@
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useState } from "react";
-import { Colors } from "../../constants/Colors";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function FavoritosScreen() {
   const [activeTab, setActiveTab] = useState("Rutas");
   const tabs = ["Rutas", "Paradas", "Local"];
+  const { colors } = useTheme();
+
+  const styles = makeStyles(colors);
 
   return (
     <View style={styles.container}>
@@ -45,70 +48,74 @@ export default function FavoritosScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background.main,
-  },
-  tabContainer: {
-    flexDirection: "row",
-    padding: 20,
-    justifyContent: "space-between",
-  },
-  tab: {
-    flex: 1,
-    paddingVertical: 10,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: 20,
-    marginHorizontal: 5,
-    backgroundColor: Colors.background.card,
-  },
-  activeTab: {
-    backgroundColor: Colors.button.primary,
-    borderColor: Colors.button.primary,
-  },
-  tabText: {
-    color: Colors.text.dark,
-    fontSize: 14,
-  },
-  activeTabText: {
-    color: Colors.background.card,
-    fontWeight: "bold",
-  },
-  list: {
-    padding: 20,
-    paddingTop: 0,
-  },
-  card: {
-    backgroundColor: Colors.background.card,
-    padding: 20,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    marginBottom: 15,
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: Colors.text.dark,
-    marginBottom: 10,
-  },
-  cardText: {
-    fontSize: 14,
-    color: Colors.text.light,
-  },
-  infoCard: {
-    padding: 20,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    marginTop: 20,
-  },
-  infoText: {
-    fontSize: 14,
-    color: Colors.text.dark,
-    textAlign: "center",
-  }
-});
+type Colors = ReturnType<typeof useTheme>["colors"];
+
+function makeStyles(colors: Colors) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background.main,
+    },
+    tabContainer: {
+      flexDirection: "row",
+      padding: 20,
+      justifyContent: "space-between",
+    },
+    tab: {
+      flex: 1,
+      paddingVertical: 10,
+      alignItems: "center",
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 20,
+      marginHorizontal: 5,
+      backgroundColor: colors.background.card,
+    },
+    activeTab: {
+      backgroundColor: colors.button.primary,
+      borderColor: colors.button.primary,
+    },
+    tabText: {
+      color: colors.text.dark,
+      fontSize: 14,
+    },
+    activeTabText: {
+      color: "#FFFFFF",
+      fontWeight: "bold",
+    },
+    list: {
+      padding: 20,
+      paddingTop: 0,
+    },
+    card: {
+      backgroundColor: colors.background.card,
+      padding: 20,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: colors.border,
+      marginBottom: 15,
+    },
+    cardTitle: {
+      fontSize: 20,
+      fontWeight: "bold",
+      color: colors.text.dark,
+      marginBottom: 10,
+    },
+    cardText: {
+      fontSize: 14,
+      color: colors.text.light,
+    },
+    infoCard: {
+      padding: 20,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: colors.border,
+      marginTop: 20,
+    },
+    infoText: {
+      fontSize: 14,
+      color: colors.text.dark,
+      textAlign: "center",
+    }
+  });
+}

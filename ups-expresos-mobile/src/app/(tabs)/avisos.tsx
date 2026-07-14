@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, ActivityIndicator } from "react-native";
 import { useState, useEffect } from "react";
-import { Colors } from "../../constants/Colors";
+import { useTheme } from "../../context/ThemeContext";
 import { mobileService } from "../../services/mobile.service";
 import { Notice } from "../../types/notice";
 
@@ -8,6 +8,9 @@ export default function AvisosScreen() {
   const [activeTab, setActiveTab] = useState("Todos");
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
+  const { colors } = useTheme();
+
+  const styles = makeStyles(colors);
 
   const tabs = ["Todos", "INFO", "WARNING", "CRITICAL"];
 
@@ -49,7 +52,7 @@ export default function AvisosScreen() {
 
       {loading ? (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <ActivityIndicator size="large" color={Colors.button.primary} />
+          <ActivityIndicator size="large" color={colors.button.primary} />
         </View>
       ) : (
         <ScrollView contentContainerStyle={styles.list}>
@@ -70,86 +73,90 @@ export default function AvisosScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background.main,
-  },
-  tabContainer: {
-    flexDirection: "row",
-    padding: 20,
-    justifyContent: "space-between",
-  },
-  tab: {
-    flex: 1,
-    paddingVertical: 10,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: 20,
-    marginHorizontal: 5,
-    backgroundColor: Colors.background.card,
-  },
-  activeTab: {
-    backgroundColor: Colors.button.primary,
-    borderColor: Colors.button.primary,
-  },
-  tabText: {
-    color: Colors.text.dark,
-    fontSize: 14,
-  },
-  activeTabText: {
-    color: Colors.background.card,
-    fontWeight: "bold",
-  },
-  list: {
-    padding: 20,
-    paddingTop: 0,
-  },
-  card: {
-    backgroundColor: Colors.background.card,
-    padding: 20,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    marginBottom: 15,
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: Colors.text.dark,
-    flex: 1,
-  },
-  cardText: {
-    fontSize: 14,
-    color: Colors.text.light,
-  },
-  cardCritical: {
-    borderColor: Colors.error,
-    borderWidth: 2,
-  },
-  headerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 10,
-  },
-  severityBadge: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    overflow: 'hidden',
-    color: Colors.background.card,
-  },
-  severityINFO: {
-    backgroundColor: Colors.info,
-  },
-  severityWARNING: {
-    backgroundColor: Colors.warning,
-  },
-  severityCRITICAL: {
-    backgroundColor: Colors.error,
-  }
-});
+type Colors = ReturnType<typeof useTheme>["colors"];
+
+function makeStyles(colors: Colors) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background.main,
+    },
+    tabContainer: {
+      flexDirection: "row",
+      padding: 20,
+      justifyContent: "space-between",
+    },
+    tab: {
+      flex: 1,
+      paddingVertical: 10,
+      alignItems: "center",
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 20,
+      marginHorizontal: 5,
+      backgroundColor: colors.background.card,
+    },
+    activeTab: {
+      backgroundColor: colors.button.primary,
+      borderColor: colors.button.primary,
+    },
+    tabText: {
+      color: colors.text.dark,
+      fontSize: 14,
+    },
+    activeTabText: {
+      color: "#FFFFFF",
+      fontWeight: "bold",
+    },
+    list: {
+      padding: 20,
+      paddingTop: 0,
+    },
+    card: {
+      backgroundColor: colors.background.card,
+      padding: 20,
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: colors.border,
+      marginBottom: 15,
+    },
+    cardTitle: {
+      fontSize: 20,
+      fontWeight: "bold",
+      color: colors.text.dark,
+      flex: 1,
+    },
+    cardText: {
+      fontSize: 14,
+      color: colors.text.light,
+    },
+    cardCritical: {
+      borderColor: colors.error,
+      borderWidth: 2,
+    },
+    headerRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      marginBottom: 10,
+    },
+    severityBadge: {
+      fontSize: 10,
+      fontWeight: 'bold',
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 12,
+      overflow: 'hidden',
+      color: "#FFFFFF",
+    },
+    severityINFO: {
+      backgroundColor: colors.info,
+    },
+    severityWARNING: {
+      backgroundColor: colors.warning,
+    },
+    severityCRITICAL: {
+      backgroundColor: colors.error,
+    }
+  });
+}

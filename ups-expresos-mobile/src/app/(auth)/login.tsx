@@ -1,4 +1,16 @@
-import { View, Text, StyleSheet, TextInput, Pressable, KeyboardAvoidingView, Platform, ActivityIndicator, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+  ActivityIndicator,
+  Alert,
+  Image,
+} from "react-native";
+
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Colors } from "../../constants/Colors";
@@ -73,112 +85,113 @@ export default function LoginScreen() {
   };
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <View style={styles.header}>
-        <Text style={styles.title}>Login</Text>
-      </View>
-      
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Iniciar sesión</Text>
+  <KeyboardAvoidingView
+    style={styles.container}
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+  >
+    <View style={styles.content}>
 
-        {step === 'email' ? (
-          <>
-            <Text style={styles.label}>Correo institucional UPS</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="usuario@est.ups.edu.ec"
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize="none"
-              keyboardType="email-address"
-              editable={!isLoading}
-            />
+      <Text style={styles.title}>
+        Iniciar sesión
+      </Text>
 
-            <Pressable 
-              style={[styles.loginButton, isLoading && styles.loginButtonDisabled]} 
-              onPress={handleRequestCode}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <ActivityIndicator color={Colors.text.dark} />
-              ) : (
-                <Text style={styles.loginButtonText}>Solicitar código</Text>
-              )}
-            </Pressable>
-          </>
-        ) : (
-          <>
-            <Text style={styles.label}>Código de verificación (6 dígitos)</Text>
-            <Text style={styles.infoText}>Enviado a: {email}</Text>
-            
-            <TextInput
-              style={styles.input}
-              placeholder="123456"
-              value={code}
-              onChangeText={setCode}
-              keyboardType="number-pad"
-              maxLength={6}
-              editable={!isLoading}
-            />
+      <Text style={styles.subtitle}>
+        Accede con tu correo institucional UPS.
+      </Text>
 
-            <Pressable 
-              style={[styles.loginButton, isLoading && styles.loginButtonDisabled]} 
-              onPress={handleVerifyCode}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <ActivityIndicator color={Colors.text.dark} />
-              ) : (
-                <Text style={styles.loginButtonText}>Verificar código</Text>
-              )}
-            </Pressable>
+      {step === "email" ? (
+        <>
+          <Text style={styles.label}>
+            Correo institucional
+          </Text>
 
-            <Pressable 
-              style={styles.backButton} 
-              onPress={() => setStep('email')}
-              disabled={isLoading}
-            >
-              <Text style={styles.backButtonText}>Usar otro correo</Text>
-            </Pressable>
-          </>
-        )}
-      </View>
-    </KeyboardAvoidingView>
-  );
+<View style={styles.inputContainer}>
+  <Image
+    source={require("../../../assets/images/images_busapp/correo.png")}
+    style={styles.inputIcon}
+    resizeMode="contain"
+  />
+
+  <TextInput
+    style={styles.input}
+    placeholder="usuario@est.ups.edu.ec"
+    placeholderTextColor={Colors.text.light}
+    value={email}
+    onChangeText={setEmail}
+    autoCapitalize="none"
+    keyboardType="email-address"
+    editable={!isLoading}
+  />
+</View>
+
+          <Pressable
+            style={styles.loginButton}
+            onPress={handleRequestCode}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#FFFFFF" />
+            ) : (
+              <Text style={styles.loginButtonText}>
+                Enviar código
+              </Text>
+            )}
+          </Pressable>
+        </>
+      ) : (
+        <>
+          <Text style={styles.label}>
+            Código de verificación
+          </Text>
+
+          <Text style={styles.infoText}>
+            Enviado a {email}
+          </Text>
+
+          <TextInput
+            style={styles.input}
+            placeholder="123456"
+            value={code}
+            onChangeText={setCode}
+            keyboardType="number-pad"
+            maxLength={6}
+          />
+
+          <Pressable
+            style={styles.loginButton}
+            onPress={handleVerifyCode}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#FFFFFF" />
+            ) : (
+              <Text style={styles.loginButtonText}>
+                Verificar código
+              </Text>
+            )}
+          </Pressable>
+        </>
+      )}
+
+    </View>
+  </KeyboardAvoidingView>
+);
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background.main,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  header: {
-    position: 'absolute',
-    top: 60,
+    backgroundColor: "#FFFFFF",
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 32,
+    fontWeight: "700",
     color: Colors.text.dark,
+    marginBottom: 10,
   },
-  card: {
-    backgroundColor: Colors.background.card,
-    width: "85%",
-    padding: 24,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    alignItems: "center",
+  content: {
+    flex: 1,
+    justifyContent: "flex-start",
+    paddingHorizontal: 28,
+    paddingTop: 100,
   },
   cardTitle: {
     fontSize: 24,
@@ -187,48 +200,58 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     alignSelf: 'flex-start',
   },
+  inputContainer: {
+  flexDirection: "row",
+  alignItems: "center",
+  height: 55,
+  borderWidth: 1,
+  borderColor: Colors.border,
+  borderRadius: 12,
+  paddingHorizontal: 16,
+  marginBottom: 24,
+  backgroundColor: "#FFFFFF",
+},
+inputIcon: {
+  width: 18,
+  height: 18,
+  marginRight: 12,
+  tintColor: Colors.text.light,
+},
+  subtitle: {
+    fontSize: 15,
+    color: Colors.text.light,
+    marginBottom: 40,
+    lineHeight: 22,
+  },
   label: {
     fontSize: 14,
-    color: Colors.text.light,
-    alignSelf: 'flex-start',
-    marginBottom: 8,
+    fontWeight: "600",
+    color: Colors.text.dark,
+    marginBottom: 10,
   },
   infoText: {
-    fontSize: 12,
-    color: Colors.text.dark,
-    alignSelf: 'flex-start',
-    marginBottom: 16,
-    fontStyle: 'italic',
-  },
-  input: {
-    width: "100%",
-    height: 50,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: 25,
-    paddingHorizontal: 20,
+    color: Colors.text.light,
     marginBottom: 20,
-    fontSize: 16,
-    backgroundColor: Colors.background.card,
   },
+input: {
+  flex: 1,
+  fontSize: 16,
+  color: Colors.text.dark,
+},
   loginButton: {
-    backgroundColor: Colors.background.card,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 25,
-    width: "80%",
+    height: 54,
+    borderRadius: 12,
+    backgroundColor: Colors.button.primary,
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
   },
   loginButtonDisabled: {
     opacity: 0.5,
   },
   loginButtonText: {
-    color: Colors.text.dark,
+    color: "#FFFFFF",
+    fontWeight: "700",
     fontSize: 16,
-    fontWeight: "500",
   },
   backButton: {
     marginTop: 15,

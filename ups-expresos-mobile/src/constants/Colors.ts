@@ -1,6 +1,7 @@
 export const Colors = {
   primary: '#00205B', // UPS Blue (PANTONE 281 CVU)
-  secondary: '#F2A900', // UPS Yellow (PANTONE 130 CVU)
+  secondary: '#F2A900',
+  white: "#FFFFFF", // UPS Yellow (PANTONE 130 CVU)
   text: {
     dark: '#403F3B',
     light: '#807D7E',
