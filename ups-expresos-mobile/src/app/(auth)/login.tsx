@@ -15,74 +15,51 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Colors } from "../../constants/Colors";
 import { authService } from "../../services/auth.service";
-import { useAuth } from "../../context/AuthContext";
-
-type Step = 'email' | 'code';
 
 export default function LoginScreen() {
   const router = useRouter();
-  const { login } = useAuth();
-  const [step, setStep] = useState<Step>('email');
   const [email, setEmail] = useState("");
-  const [code, setCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleRequestCode = async () => {
-    if (!email) {
-      Alert.alert("Error", "Por favor ingresa tu correo institucional");
-      return;
-    }
-    
-    setIsLoading(true);
-    try {
-      await authService.requestCode(email);
-      // Avanzamos al paso de código si se envió correctamente
-      setStep('code');
-      // Solo en entorno de desarrollo se podría mostrar en consola:
-      // if (response.devCode) console.log("OTP Dev Code:", response.devCode);
-    } catch (error: any) {
-      console.error(error);
-      const message = error.response?.data?.message || "Ocurrió un error al solicitar el código";
-      Alert.alert("Error", message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+const handleRequestCode = async () => {
+  if (!email) {
+    Alert.alert(
+      "Error",
+      "Por favor ingresa tu correo institucional"
+    );
+    return;
+  }
 
-  const handleVerifyCode = async () => {
-    if (code.length !== 6) {
-      Alert.alert("Error", "El código debe tener 6 dígitos");
-      return;
-    }
+  setIsLoading(true);
 
-    setIsLoading(true);
-    try {
-      // 1. Verificar el código con el backend
-      const response = await authService.verifyCode(email, code);
+  try {
+    await authService.requestCode(email);
 
-      // 2. Validar que los tokens existan
-      const accessToken = response.accessToken ? String(response.accessToken) : null;
-      const refreshToken = response.refreshToken ? String(response.refreshToken) : null;
+    router.push({
+      pathname: "/(auth)/otp",
+      params: {
+        email,
+      },
+    });
 
-      if (!accessToken || !refreshToken) {
-        Alert.alert("Error", "La respuesta del servidor no contiene los tokens de sesión. Intenta de nuevo.");
-        return;
-      }
+  } catch (error: any) {
 
-      // 3. Guardar tokens y datos de usuario localmente mediante AuthContext
-      await login(accessToken, refreshToken, response.user as any);
+  if (error.response?.status === 429) {
+    alert("Debes esperar unos segundos antes de solicitar otro código.");
+    return;
+  }
 
-      // 4. Navegar a los tabs
-      router.replace("/(tabs)");
-    } catch (error: any) {
-      console.error('Error en verificación:', error);
-      // Distinguir error de red/servidor vs error local
-      const message = error.response?.data?.message || error.message || "Código incorrecto o expirado";
-      Alert.alert("Error", message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  alert(
+    error.response?.data?.message ??
+    "No se pudo reenviar el código."
+  );
+
+  } finally {
+
+    setIsLoading(false);
+
+  }
+};
 
   return (
   <KeyboardAvoidingView
@@ -99,16 +76,14 @@ export default function LoginScreen() {
         Accede con tu correo institucional UPS.
       </Text>
 
-      {step === "email" ? (
-        <>
-          <Text style={styles.label}>
-            Correo institucional
-          </Text>
+      <Text style={styles.label}>
+        Correo institucional
+      </Text>
 
-<View style={styles.inputContainer}>
-  <Image
-    source={require("../../../assets/images/images_busapp/correo.png")}
-    style={styles.inputIcon}
+      <View style={styles.inputContainer}>
+        <Image
+          source={require("../../../assets/images/images_busapp/correo.png")}
+          style={styles.inputIcon}
     resizeMode="contain"
   />
 
@@ -124,52 +99,22 @@ export default function LoginScreen() {
   />
 </View>
 
-          <Pressable
-            style={styles.loginButton}
-            onPress={handleRequestCode}
-          >
-            {isLoading ? (
-              <ActivityIndicator color="#FFFFFF" />
-            ) : (
-              <Text style={styles.loginButtonText}>
-                Enviar código
-              </Text>
-            )}
-          </Pressable>
-        </>
-      ) : (
-        <>
-          <Text style={styles.label}>
-            Código de verificación
-          </Text>
-
-          <Text style={styles.infoText}>
-            Enviado a {email}
-          </Text>
-
-          <TextInput
-            style={styles.input}
-            placeholder="123456"
-            value={code}
-            onChangeText={setCode}
-            keyboardType="number-pad"
-            maxLength={6}
-          />
-
-          <Pressable
-            style={styles.loginButton}
-            onPress={handleVerifyCode}
-          >
-            {isLoading ? (
-              <ActivityIndicator color="#FFFFFF" />
-            ) : (
-              <Text style={styles.loginButtonText}>
-                Verificar código
-              </Text>
-            )}
-          </Pressable>
-        </>
-      )}
+<Pressable
+  style={[
+    styles.loginButton,
+    isLoading && styles.loginButtonDisabled,
+  ]}
+  onPress={handleRequestCode}
+  disabled={isLoading}
+>
+  {isLoading ? (
+    <ActivityIndicator color="#FFFFFF" />
+  ) : (
+    <Text style={styles.loginButtonText}>
+      Enviar código
+    </Text>
+  )}
+</Pressable>
 
     </View>
   </KeyboardAvoidingView>
@@ -192,13 +137,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingHorizontal: 28,
     paddingTop: 100,
-  },
-  cardTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: Colors.text.dark,
-    marginBottom: 24,
-    alignSelf: 'flex-start',
   },
   inputContainer: {
   flexDirection: "row",
@@ -229,10 +167,6 @@ inputIcon: {
     color: Colors.text.dark,
     marginBottom: 10,
   },
-  infoText: {
-    color: Colors.text.light,
-    marginBottom: 20,
-  },
 input: {
   flex: 1,
   fontSize: 16,
@@ -253,13 +187,4 @@ input: {
     fontWeight: "700",
     fontSize: 16,
   },
-  backButton: {
-    marginTop: 15,
-    padding: 10,
-  },
-  backButtonText: {
-    color: Colors.button.primary,
-    fontSize: 14,
-    textDecorationLine: 'underline',
-  }
 });

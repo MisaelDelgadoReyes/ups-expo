@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  Switch,
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,7 +16,7 @@ function ChevronRight({ color }: Readonly<{ color: string }>) {
 
 export default function PerfilScreen() {
   const { user, logout } = useAuth();
-  const { colors, isDarkMode, toggleDarkMode } = useTheme();
+  const { colors } = useTheme();
 
   const handleLogout = async () => {
     await logout();
@@ -98,22 +97,6 @@ export default function PerfilScreen() {
               </View>
               <ChevronRight color={colors.text.light} />
             </Pressable>
-
-            {/* Modo oscuro */}
-            <View style={[styles.menuRow, styles.menuRowBorder]}>
-              <View style={styles.menuLeft}>
-                <Text style={styles.menuIcon}>
-                  {isDarkMode ? "🌙" : "☀️"}
-                </Text>
-                <Text style={styles.menuLabel}>Modo oscuro</Text>
-              </View>
-              <Switch
-                value={isDarkMode}
-                onValueChange={toggleDarkMode}
-                trackColor={{ false: colors.border, true: colors.primary }}
-                thumbColor={isDarkMode ? colors.secondary : "#FFFFFF"}
-              />
-            </View>
 
             {/* Ayuda y soporte */}
             <Pressable
