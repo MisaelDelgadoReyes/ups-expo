@@ -1,38 +1,12 @@
 import { Tabs, useRouter } from "expo-router";
-import { Text, View, ActivityIndicator, ColorValue } from "react-native";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import { useEffect, useRef } from "react";
+import { View, ActivityIndicator } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 // ─── Ícono de la barra de pestañas ───────────────────────────────────────────
-const TAB_ICONS: Readonly<Record<string, string>> = {
-  index: "🏠",
-  rutas: "🚌",
-  avisos: "🔔",
-  favoritos: "⭐",
-  perfil: "👤",
-};
 
-function TabBarIcon({ name, color }: Readonly<{ name: string; color: ColorValue }>) {
-  return <Text style={{ fontSize: 24, color }}>{TAB_ICONS[name] ?? "❓"}</Text>;
-}
-
-// ─── Funciones de ícono extraídas fuera del componente padre ─────────────────
-function InicioIcon({ color }: Readonly<{ color: ColorValue }>) {
-  return <TabBarIcon name="index" color={color} />;
-}
-function RutasIcon({ color }: Readonly<{ color: ColorValue }>) {
-  return <TabBarIcon name="rutas" color={color} />;
-}
-function AvisosIcon({ color }: Readonly<{ color: ColorValue }>) {
-  return <TabBarIcon name="avisos" color={color} />;
-}
-function FavoritosIcon({ color }: Readonly<{ color: ColorValue }>) {
-  return <TabBarIcon name="favoritos" color={color} />;
-}
-function PerfilIcon({ color }: Readonly<{ color: ColorValue }>) {
-  return <TabBarIcon name="perfil" color={color} />;
-}
 
 // ─── Layout principal de las pestañas ────────────────────────────────────────
 export default function TabLayout() {
@@ -69,49 +43,84 @@ export default function TabLayout() {
         headerShown: true,
         headerStyle: { backgroundColor: colors.primary },
         headerTintColor: "#FFFFFF",
-        tabBarActiveTintColor: colors.secondary,
-        tabBarInactiveTintColor: colors.text.light,
+        tabBarActiveTintColor: "#0A4FB3",
+        tabBarInactiveTintColor: "#9A9A9A",
         tabBarStyle: {
-          backgroundColor: colors.background.card,
-          borderTopColor: colors.border,
+          height: 72,
+          paddingTop: 8,
+          paddingBottom: 8,
+          backgroundColor: "#FFFFFF",
+          borderTopWidth: 1,
+          borderTopColor: "#ECECEC",
         },
       }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Inicio",
-          tabBarIcon: ({ color }) => <InicioIcon color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="rutas"
-        options={{
-          title: "Rutas",
-          tabBarIcon: ({ color }) => <RutasIcon color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="avisos"
-        options={{
-          title: "Avisos",
-          tabBarIcon: ({ color }) => <AvisosIcon color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="favoritos"
-        options={{
-          title: "Favoritos",
-          tabBarIcon: ({ color }) => <FavoritosIcon color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="perfil"
-        options={{
-          title: "Perfil",
-          tabBarIcon: ({ color }) => <PerfilIcon color={color} />,
-        }}
-      />
+    <Tabs.Screen
+      name="index"
+      options={{
+        title: "Inicio",
+        headerShown: false,
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons
+            name="home"
+            size={size}
+            color={color}
+          />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="rutas"
+      options={{
+        title: "Rutas",
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons
+            name="bus-outline"
+            size={size}
+            color={color}
+          />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="avisos"
+      options={{
+        title: "Avisos",
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons
+            name="notifications-outline"
+            size={size}
+            color={color}
+          />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="favoritos"
+      options={{
+        title: "Favoritos",
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons
+            name="heart-outline"
+            size={size}
+            color={color}
+          />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="perfil"
+      options={{
+        title: "Perfil",
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons
+            name="person-outline"
+            size={size}
+            color={color}
+          />
+        ),
+      }}
+    />
     </Tabs>
   );
 }
