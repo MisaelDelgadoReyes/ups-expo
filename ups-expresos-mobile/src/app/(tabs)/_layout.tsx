@@ -73,6 +73,7 @@ export default function TabLayout() {
       name="rutas"
       options={{
         title: "Rutas",
+        headerShown: false,
         tabBarIcon: ({ color, size }) => (
           <Ionicons
             name="bus-outline"
@@ -86,6 +87,7 @@ export default function TabLayout() {
       name="avisos"
       options={{
         title: "Avisos",
+        headerShown: false,
         tabBarIcon: ({ color, size }) => (
           <Ionicons
             name="notifications-outline"
@@ -99,6 +101,7 @@ export default function TabLayout() {
       name="favoritos"
       options={{
         title: "Favoritos",
+        headerShown: false,
         tabBarIcon: ({ color, size }) => (
           <Ionicons
             name="heart-outline"
@@ -112,6 +115,7 @@ export default function TabLayout() {
       name="perfil"
       options={{
         title: "Perfil",
+        headerShown: false,
         tabBarIcon: ({ color, size }) => (
           <Ionicons
             name="person-outline"

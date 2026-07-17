@@ -13,6 +13,11 @@ const api = axios.create({
 // Interceptor para agregar el token a todas las solicitudes
 api.interceptors.request.use(
   async (config) => {
+    // 👇 Agrega esto
+    console.log(
+      `[${new Date().toISOString()}] ${config.method?.toUpperCase()} ${config.url}`,
+      config.params
+    );
     try {
       const token = await SecureStore.getItemAsync('access_token');
       if (token) {
@@ -57,7 +62,12 @@ api.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
-    
+    if (error.response) {
+      console.log("STATUS:", error.response.status);
+      console.log("URL:", error.config?.url);
+      console.log("PARAMS:", error.config?.params);
+      console.log("BODY:", error.response.data);
+    }
     return Promise.reject(error);
   }
 );
