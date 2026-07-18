@@ -1,7 +1,6 @@
-import { Tabs, useRouter } from "expo-router";
+import { Tabs } from "expo-router";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
-import { useEffect, useRef } from "react";
 import { View, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -12,18 +11,6 @@ import { Ionicons } from "@expo/vector-icons";
 export default function TabLayout() {
   const { isAuthenticated, loading } = useAuth();
   const { colors } = useTheme();
-  const router = useRouter();
-  const redirecting = useRef(false);
-
-  useEffect(() => {
-    if (!loading && !isAuthenticated && !redirecting.current) {
-      redirecting.current = true;
-      router.replace("/");
-    }
-    if (isAuthenticated) {
-      redirecting.current = false;
-    }
-  }, [loading, isAuthenticated]);
 
   if (loading) {
     return (
@@ -31,10 +18,6 @@ export default function TabLayout() {
         <ActivityIndicator size="large" color={colors.button.primary} />
       </View>
     );
-  }
-
-  if (!isAuthenticated) {
-    return null;
   }
 
   return (

@@ -78,7 +78,7 @@ async function logout() {
       await authService.logout(refreshToken);
     }
   } catch (error) {
-    console.warn("Error en logout del backend, cerrando sesión localmente.", error);
+    console.log("Logout del backend falló, procediendo a cerrar sesión localmente.");
   }
 
   await SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);

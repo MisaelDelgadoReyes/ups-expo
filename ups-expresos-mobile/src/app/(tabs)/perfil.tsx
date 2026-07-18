@@ -10,10 +10,12 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
 export default function PerfilScreen() {
   const { user, logout } = useAuth();
   const { colors } = useTheme();
+  const router = useRouter();
 
   const handleLogout = async () => {
     await logout();
