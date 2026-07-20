@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   noticeText: {
     color: Colors.text.dark,
     fontSize: 14,
-    fontWeight: "500",
+    fontFamily: "Inter-Medium",
   },
   mapArea: {
     flex: 1,
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   mapPlaceholder: {
     color: Colors.text.light,
     fontSize: 16,
+    fontFamily: "Inter-Regular",
   },
   legendCard: {
     backgroundColor: Colors.background.card,
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
   legendText: {
     color: Colors.text.dark,
     fontSize: 14,
+    fontFamily: "Inter-Regular",
     marginBottom: 5,
   }
 });

@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: "700",
+    fontFamily: "Inter-Bold",
     color: Colors.text.dark,
     marginBottom: 10,
   },
@@ -157,19 +157,21 @@ inputIcon: {
 },
   subtitle: {
     fontSize: 15,
+    fontFamily: "Inter-Regular",
     color: Colors.text.light,
     marginBottom: 40,
     lineHeight: 22,
   },
   label: {
     fontSize: 14,
-    fontWeight: "600",
+    fontFamily: "Inter-SemiBold",
     color: Colors.text.dark,
     marginBottom: 10,
   },
 input: {
   flex: 1,
   fontSize: 16,
+  fontFamily: "Inter-Regular",
   color: Colors.text.dark,
 },
   loginButton: {
@@ -184,7 +186,7 @@ input: {
   },
   loginButtonText: {
     color: "#FFFFFF",
-    fontWeight: "700",
+    fontFamily: "Inter-Bold",
     fontSize: 16,
   },
 });

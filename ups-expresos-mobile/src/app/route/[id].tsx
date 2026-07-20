@@ -173,7 +173,7 @@ function makeStyles(colors: Colors) {
     headerTitle: {
       flex: 1,
       fontSize: 20,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: "#FFFFFF",
     },
     mapButton: {
@@ -194,12 +194,13 @@ function makeStyles(colors: Colors) {
     },
     sectionTitle: {
       fontSize: 16,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 12,
     },
     sectionText: {
       fontSize: 14,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
       lineHeight: 20,
     },
@@ -221,7 +222,7 @@ function makeStyles(colors: Colors) {
     },
     stopNumberText: {
       fontSize: 12,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: "#0056B8",
     },
     stopTextCol: {
@@ -229,11 +230,12 @@ function makeStyles(colors: Colors) {
     },
     stopName: {
       fontSize: 14,
-      fontWeight: "600",
+      fontFamily: "Inter-SemiBold",
       color: colors.text.dark,
     },
     stopRef: {
       fontSize: 12,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
       marginTop: 2,
     },
@@ -242,12 +244,13 @@ function makeStyles(colors: Colors) {
     },
     dayLabel: {
       fontSize: 14,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 4,
     },
     dayTimes: {
       fontSize: 14,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
       lineHeight: 20,
     },

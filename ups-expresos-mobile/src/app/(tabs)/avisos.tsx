@@ -177,7 +177,7 @@ function makeStyles(colors: Colors) {
     },
     screenTitle: {
       fontSize: 28,
-      fontWeight: 'bold',
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       paddingHorizontal: 20,
       paddingTop: 20, // Espacio superior extra al ocultar el header nativo
@@ -205,11 +205,12 @@ function makeStyles(colors: Colors) {
     },
     tabText: {
       color: colors.text.dark,
+      fontFamily: "Inter-Regular",
       fontSize: 12,
     },
     activeTabText: {
       color: "#FFFFFF",
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
     },
     list: {
       padding: 20,
@@ -254,16 +255,17 @@ function makeStyles(colors: Colors) {
     },
     badgeText: {
       fontSize: 10,
-      fontWeight: 'bold',
+      fontFamily: "Inter-Bold",
     },
     cardTitle: {
       fontSize: 16,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 6,
     },
     cardText: {
       fontSize: 13,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
       marginBottom: 12,
       lineHeight: 18,
@@ -275,6 +277,7 @@ function makeStyles(colors: Colors) {
     },
     dateText: {
       fontSize: 11,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
     }
   });

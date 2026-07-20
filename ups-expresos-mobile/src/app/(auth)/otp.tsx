@@ -1,4 +1,4 @@
-﻿import {
+import {
   View,
   Text,
   StyleSheet,
@@ -264,18 +264,19 @@ const styles = StyleSheet.create({
     textAlign: "center",
   color: Colors.primary,
   fontSize: 16,
-  fontWeight: "600",
+  fontFamily: "Inter-SemiBold",
 },
 
   title: {
     fontSize: 32,
-    fontWeight: "700",
+    fontFamily: "Inter-Bold",
     color: Colors.text.dark,
     marginBottom: 12,
   },
 
   subtitle: {
     fontSize: 16,
+    fontFamily: "Inter-Regular",
     color: Colors.text.light,
     lineHeight: 24,
     marginBottom: 12,
@@ -283,7 +284,7 @@ const styles = StyleSheet.create({
 
   email: {
     fontSize: 17,
-    fontWeight: "600",
+    fontFamily: "Inter-SemiBold",
     color: Colors.primary,
   },
 
@@ -301,7 +302,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
     borderRadius: 12,
     fontSize: 24,
-    fontWeight: "700",
+    fontFamily: "Inter-Bold",
     color: Colors.text.dark,
     backgroundColor: "#FFFFFF",
   },
@@ -309,13 +310,14 @@ const styles = StyleSheet.create({
   resendQuestion: {
     textAlign: "center",
     fontSize: 15,
+    fontFamily: "Inter-Regular",
     color: Colors.text.light,
     marginTop: 20,
   },
 
   resendText: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Inter-SemiBold",
     color: Colors.primary,
     textAlign: "center",
   },
@@ -326,7 +328,7 @@ const styles = StyleSheet.create({
 
   backButtonText: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Inter-SemiBold",
     color: Colors.text.dark,
   },
 });

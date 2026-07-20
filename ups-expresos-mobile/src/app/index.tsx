@@ -114,7 +114,7 @@ function makeStyles(colors: ThemeColors) {
     },
     tagline: {
       fontSize: 17,
-      fontWeight: "500",
+      fontFamily: "Inter-Medium",
       color: colors.white,
       opacity: 0.8,
       textAlign: "center",
@@ -122,6 +122,7 @@ function makeStyles(colors: ThemeColors) {
     },
     description: {
       fontSize: 14,
+      fontFamily: "Inter-Regular",
       color: "#FFFFFF",
       opacity: 0.85,
       lineHeight: 22,
@@ -146,7 +147,7 @@ function makeStyles(colors: ThemeColors) {
     buttonText: {
       color: colors.primary,
       fontSize: 18,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       letterSpacing: 0.5,
     },
   });

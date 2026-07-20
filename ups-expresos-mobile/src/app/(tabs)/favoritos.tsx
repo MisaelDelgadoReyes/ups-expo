@@ -124,7 +124,7 @@ function makeStyles(colors: Colors) {
     },
     headerTitle: {
       fontSize: 24,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: "#FFFFFF",
       paddingHorizontal: 20,
       marginBottom: 20,
@@ -146,11 +146,11 @@ function makeStyles(colors: Colors) {
     tabText: {
       color: "#D9E7FF",
       fontSize: 15,
-      fontWeight: "500",
+      fontFamily: "Inter-Medium",
     },
     activeTabText: {
       color: "#FFFFFF",
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
     },
     list: {
       padding: 20,
@@ -158,7 +158,7 @@ function makeStyles(colors: Colors) {
     },
     sectionTitle: {
       fontSize: 16,
-      fontWeight: 'bold',
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 12,
       marginTop: 10,
@@ -193,12 +193,13 @@ function makeStyles(colors: Colors) {
     },
     cardTitle: {
       fontSize: 16,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 4,
     },
     cardSubtitle: {
       fontSize: 13,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
     },
     infoCard: {
@@ -216,6 +217,7 @@ function makeStyles(colors: Colors) {
     infoText: {
       flex: 1,
       fontSize: 13,
+      fontFamily: "Inter-Regular",
       color: "#0056B8", // Texto que hace match con el azul del header
       lineHeight: 18,
     },

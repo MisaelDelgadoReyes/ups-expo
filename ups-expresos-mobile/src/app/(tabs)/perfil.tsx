@@ -183,7 +183,7 @@ function makeStyles(colors: ThemeColors) {
     topBarTitle: {
       color: "#FFFFFF",
       fontSize: 24,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
     },
     scroll: {
       flex: 1,
@@ -220,18 +220,19 @@ function makeStyles(colors: ThemeColors) {
     },
     avatarText: {
       fontSize: 34,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: "#FFFFFF",
       letterSpacing: 1,
     },
     userName: {
       fontSize: 22,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 4,
     },
     userEmail: {
       fontSize: 14,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
       marginBottom: 16,
     },
@@ -241,11 +242,12 @@ function makeStyles(colors: ThemeColors) {
     userRole: {
       fontSize: 14,
       color: colors.text.dark,
-      fontWeight: "600",
+      fontFamily: "Inter-SemiBold",
       marginBottom: 2,
     },
     userMajor: {
       fontSize: 14,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
     },
 
@@ -274,7 +276,7 @@ function makeStyles(colors: ThemeColors) {
     menuLabel: {
       fontSize: 16,
       color: colors.text.dark,
-      fontWeight: "500",
+      fontFamily: "Inter-Medium",
     },
     rowPressed: {
       opacity: 0.55,
@@ -300,7 +302,7 @@ function makeStyles(colors: ThemeColors) {
     },
     logoutText: {
       fontSize: 16,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.error,
     },
   });

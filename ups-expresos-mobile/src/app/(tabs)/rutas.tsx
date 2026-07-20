@@ -166,7 +166,7 @@ function makeStyles(colors: Colors) {
     },
     headerTitle: {
       fontSize: 24,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: "#FFFFFF",
     },
     searchWrapper: {
@@ -190,6 +190,7 @@ function makeStyles(colors: Colors) {
     searchInput: {
       flex: 1,
       fontSize: 15,
+      fontFamily: "Inter-Regular",
       color: colors.text.dark,
     },
     list: {
@@ -198,7 +199,7 @@ function makeStyles(colors: Colors) {
     },
     sectionTitle: {
       fontSize: 16,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 12,
       marginTop: 4,
@@ -233,12 +234,13 @@ function makeStyles(colors: Colors) {
     },
     cardTitle: {
       fontSize: 16,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 4,
     },
     cardDirection: {
       fontSize: 13,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
     },
     cardRight: {
@@ -253,7 +255,7 @@ function makeStyles(colors: Colors) {
     },
     statusText: {
       fontSize: 11,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
     },
   });
 }

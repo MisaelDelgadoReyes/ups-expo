@@ -221,7 +221,7 @@ function makeStyles(colors: Colors) {
     },
     title: {
       fontSize: 28,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 5,
     },
@@ -246,12 +246,13 @@ notificationButton: {
 },
 greeting: {
   fontSize: 24,
-  fontWeight: "700",
+  fontFamily: "Inter-Bold",
   color: "#FFFFFF",
 },
 welcome: {
   color: "#D9E7FF",
   fontSize: 16,
+  fontFamily: "Inter-Regular",
   marginTop: 4,
 },
 summaryCard: {
@@ -267,7 +268,7 @@ summaryCard: {
 },
 summaryTitle: {
   fontSize: 21,
-  fontWeight: "700",
+  fontFamily: "Inter-Bold",
   color: colors.text.dark,
   marginBottom: 18,
 },
@@ -277,11 +278,12 @@ statusRow: {
   alignItems: "center",
 },
 statusLabel: {
-  fontWeight: "600",
+  fontFamily: "Inter-SemiBold",
   color: colors.text.dark,
 },
 statusDescription: {
   color: colors.text.light,
+  fontFamily: "Inter-Regular",
   marginTop: 5,
 },
 statusBadge: {
@@ -292,10 +294,11 @@ statusBadge: {
 },
 statusBadgeText: {
   color: "#1E9E57",
-  fontWeight: "700",
+  fontFamily: "Inter-Bold",
 },
     subtitle: {
       fontSize: 16,
+      fontFamily: "Inter-Regular",
       color: colors.text.light,
       marginBottom: 30,
     },
@@ -321,6 +324,7 @@ statusBadgeText: {
     },
     actionText: {
       fontSize: 14,
+      fontFamily: "Inter-Regular",
       color: colors.text.dark,
     },
     card: {
@@ -337,12 +341,13 @@ statusBadgeText: {
     },
     cardTitle: {
       fontSize: 20,
-      fontWeight: "bold",
+      fontFamily: "Inter-Bold",
       color: colors.text.dark,
       marginBottom: 15,
     },
     cardText: {
       fontSize: 16,
+      fontFamily: "Inter-Regular",
       color: colors.text.dark,
     },
     quickActions: {
@@ -374,13 +379,14 @@ quickCard: {
 quickTitle: {
   marginTop: 12,
   fontSize: 15,
-  fontWeight: "700",
+  fontFamily: "Inter-Bold",
   color: "#1E1E1E",
 },
 
 quickSubtitle: {
   marginTop: 4,
   fontSize: 12,
+  fontFamily: "Inter-Regular",
   color: "#8B8B8B",
 },
 scheduleSection: {
@@ -390,7 +396,7 @@ scheduleSection: {
 
 scheduleTitle: {
   fontSize: 21,
-  fontWeight: "700",
+  fontFamily: "Inter-Bold",
   color: colors.text.dark,
   marginBottom: 14,
 },
@@ -429,19 +435,21 @@ scheduleInfo: {
 
 routeName: {
   fontSize: 17,
-  fontWeight: "700",
+  fontFamily: "Inter-Bold",
   color: colors.text.dark,
   marginBottom: 8,
 },
 
 routeFrom: {
   fontSize: 14,
+  fontFamily: "Inter-Regular",
   color: colors.text.light,
   marginBottom: 8,
 },
 
 routeLabel: {
   fontSize: 14,
+  fontFamily: "Inter-Regular",
   color: colors.text.light,
 },
 
@@ -452,7 +460,7 @@ scheduleRight: {
 
 routeHour: {
   fontSize: 24,
-  fontWeight: "700",
+  fontFamily: "Inter-Bold",
   color: colors.text.dark,
   marginRight: 6,
 },

@@ -28,6 +28,10 @@ export default function TabLayout() {
         headerTintColor: "#FFFFFF",
         tabBarActiveTintColor: "#0A4FB3",
         tabBarInactiveTintColor: "#9A9A9A",
+        tabBarLabelStyle: {
+          fontFamily: "Inter-Medium",
+          fontSize: 11,
+        },
         tabBarStyle: {
           height: 72,
           paddingTop: 8,

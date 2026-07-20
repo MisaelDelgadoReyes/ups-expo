@@ -41,12 +41,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: "Inter-Bold",
     color: Colors.text.dark,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 14,
+    fontFamily: "Inter-Regular",
     color: Colors.text.light,
   },
   section: {
@@ -59,12 +60,13 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "Inter-Bold",
     color: Colors.text.dark,
     marginBottom: 10,
   },
   sectionText: {
     fontSize: 14,
+    fontFamily: "Inter-Regular",
     color: Colors.text.dark,
   },
   card: {
@@ -77,18 +79,19 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "Inter-Bold",
     color: Colors.text.dark,
     marginBottom: 5,
   },
   timeText: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: "Inter-Bold",
     color: Colors.primary,
     marginVertical: 10,
   },
   infoText: {
     fontSize: 14,
+    fontFamily: "Inter-Regular",
     color: Colors.text.light,
   },
 });

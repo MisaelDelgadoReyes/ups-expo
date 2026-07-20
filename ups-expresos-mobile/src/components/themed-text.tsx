@@ -34,35 +34,37 @@ const styles = StyleSheet.create({
   small: {
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: 500,
+    fontFamily: Fonts.medium,
   },
   smallBold: {
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: 700,
+    fontFamily: Fonts.bold,
   },
   default: {
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: 500,
+    fontFamily: Fonts.medium,
   },
   title: {
     fontSize: 48,
-    fontWeight: 600,
+    fontFamily: Fonts.semiBold,
     lineHeight: 52,
   },
   subtitle: {
     fontSize: 32,
     lineHeight: 44,
-    fontWeight: 600,
+    fontFamily: Fonts.semiBold,
   },
   link: {
     lineHeight: 30,
     fontSize: 14,
+    fontFamily: Fonts.sans,
   },
   linkPrimary: {
     lineHeight: 30,
     fontSize: 14,
+    fontFamily: Fonts.sans,
     color: '#3c87f7',
   },
   code: {
